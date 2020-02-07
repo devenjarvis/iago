@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"image"
 	"image/draw"
@@ -86,14 +87,13 @@ func main() {
 	}
 
 	//Open the base parrot gif
-	baseGif, err := os.Open("./parrot.gif")
+	baseGif, err := Asset("data/parrot.gif")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	defer baseGif.Close()
 
 	//Decode base parrot gif into frames
-	decodedGif, err := gif.DecodeAll(baseGif)
+	decodedGif, err := gif.DecodeAll(bytes.NewReader(baseGif))
 	if err != nil {
 		log.Fatalln(err)
 	}
