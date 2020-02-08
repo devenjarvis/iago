@@ -1,5 +1,5 @@
 # iago
-![alt text](https://raw.githubusercontent.com/devenjarvis/iago/master/data/parrot.gif)
+![alt text](https://raw.githubusercontent.com/devenjarvis/iago/master/data/parrot.gif?s=50) + ![alt text](https://raw.githubusercontent.com/devenjarvis/iago/master/data/batman.png?s=50) = ![alt text](https://raw.githubusercontent.com/devenjarvis/iago/master/data/parrot_out.gif?s=50)
 
 ## About
 Everyone knows the biggest problem with Slack and other chat apps is the clear lack of focus it allows. And by that I obviously mean lack of focus on partying. iago is a tool that allows you to quickly combine any image with a party parrot gif to create new and exciting ways for you and your team to party! 

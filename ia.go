@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"image"
+	"image/color/palette"
 	"image/draw"
 	"image/gif"
 	"image/jpeg"
@@ -45,7 +46,7 @@ func readOverlay(overlayFilepath string, height uint) image.Image {
 	}
 
 	//Resize overlay image
-	resizedOverlay := resize.Resize(0, height, decodedOverlay, resize.Lanczos3)
+	resizedOverlay := resize.Resize(0, height, decodedOverlay, resize.Lanczos2)
 	return resizedOverlay
 }
 
@@ -59,7 +60,7 @@ func buildNewParrot(decodedGif *gif.GIF, overlayImage image.Image, numFrames int
 		frame := decodedGif.Image[x]
 
 		//Create new frame
-		newFrame := image.NewPaletted(frame.Bounds(), frame.Palette)
+		newFrame := image.NewPaletted(frame.Bounds(), append(palette.WebSafe, image.Transparent))
 
 		//Calculate the position for the offset image
 		offset := image.Pt(int(40+26*math.Cos(t*2*math.Pi+ellipseOffset)), int(35+-5*math.Sin(t*2*math.Pi+ellipseOffset)))
