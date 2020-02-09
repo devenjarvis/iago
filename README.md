@@ -8,8 +8,14 @@
 Everyone knows the biggest problem with Slack and other chat apps is the clear lack of focus it allows. And by that I obviously mean lack of focus on partying. iago is a tool that allows you to quickly combine any image with a party parrot gif to create new and exciting ways for you and your team to party! 
 
 ## Install
-To get the lastest version of iago, make sure you have golang setup on your machine and run:
-`go get -u github.com/devenjarvis/iago`
+
+### Using Homebrew
+1. Add the tap with: `brew tap devenjarvis/iago`
+2. Install the CLI with: `brew install iago`
+3. Party Time!
+
+### Using golang
+If you have golang setup on your machine you can run `go get -u github.com/devenjarvis/iago` to go get the package. If your GOPATH is setup and visible from your system PATH then iago will be available globally. If you haven't setup gopath because you're on 1.13 or higher, than you'll need to compile iago and move it to your path manually.
 
 ## Usage
 Once installed, you should be able to run `iago <path_to_image>` from anywhere in your terminal to generate a new parrot gif.
