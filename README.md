@@ -15,7 +15,7 @@ Everyone knows the biggest problem with Slack and other chat apps is the clear l
 3. Party Time!
 
 ### Using golang
-If you have golang setup on your machine you can run `go get -u github.com/devenjarvis/iago` to go get the package. If your GOPATH is setup and visible from your system PATH then iago will be available globally. If you haven't setup gopath because you're on 1.13 or higher, than you'll need to compile iago and move it to your path manually.
+If you have golang setup on your machine you can run `go get -u github.com/devenjarvis/iago` to go get the package. If your GOPATH is setup and visible from your system PATH then iago will be available globally. If you haven't setup gopath because you're on 1.13 or higher, then you'll need to compile iago and move it to your path manually. The process to do this will vary based on your OS.
 
 ## Usage
 Once installed, you should be able to run `iago <path_to_image>` from anywhere in your terminal to generate a new parrot gif.
