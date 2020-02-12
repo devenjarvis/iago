@@ -78,7 +78,7 @@ func buildNewParrot(decodedGif *gif.GIF, overlayImage image.Image, numFrames int
 	return decodedGif
 }
 
-func main() {
+func not_main() {
 	//Get filepath argument
 	var overlayFilepath string
 	if len(os.Args) >= 2 {
