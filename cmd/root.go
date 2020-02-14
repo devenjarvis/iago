@@ -21,7 +21,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+var outputLoc string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -50,34 +50,21 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.iago.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.Flags().StringVarP(&outputLoc, "output", "o", "./parrot_out.gif", "output filepath (default is ./parrot_out.gif")
 }
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-
-		// Search config in home directory with name ".iago" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".iago")
+	// Find home directory.
+	home, err := homedir.Dir()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
+
+	// Search config in home directory with name ".iago" (without extension).
+	viper.AddConfigPath(home)
+	viper.SetConfigName(".iago")
 
 	viper.AutomaticEnv() // read in environment variables that match
 
@@ -179,7 +166,7 @@ func make_parrot() {
 	parrotGif := buildNewParrot(decodedGif, overlayImage, numFrames)
 
 	//Create output file
-	outGif, err := os.Create("./parrot_out.gif")
+	outGif, err := os.Create(outputLoc)
 	if err != nil {
 		log.Fatalln(err)
 	}
