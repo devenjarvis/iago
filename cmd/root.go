@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"bytes"
@@ -15,7 +15,64 @@ import (
 	"path/filepath"
 
 	"github.com/nfnt/resize"
+	"github.com/spf13/cobra"
+
+	homedir "github.com/mitchellh/go-homedir"
+	"github.com/spf13/viper"
 )
+
+var outputLoc string
+
+// rootCmd represents the base command when called without any subcommands
+var rootCmd = &cobra.Command{
+	Use:   "iago",
+	Short: "A brief description of your application",
+	Long: `A longer description that spans multiple lines and likely contains
+examples and usage of using your application. For example:
+
+Cobra is a CLI library for Go that empowers applications.
+This application is a tool to generate the needed files
+to quickly create a Cobra application.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		make_parrot()
+	},
+}
+
+// Execute adds all child commands to the root command and sets flags appropriately.
+// This is called by main.main(). It only needs to happen once to the rootCmd.
+func Execute() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
+func init() {
+	cobra.OnInitialize(initConfig)
+
+	rootCmd.Flags().StringVarP(&outputLoc, "output", "o", "./parrot_out.gif", "output filepath (default is ./parrot_out.gif")
+}
+
+// initConfig reads in config file and ENV variables if set.
+func initConfig() {
+	// Find home directory.
+	home, err := homedir.Dir()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	// Search config in home directory with name ".iago" (without extension).
+	viper.AddConfigPath(home)
+	viper.SetConfigName(".iago")
+
+	viper.AutomaticEnv() // read in environment variables that match
+
+	// If a config file is found, read it in.
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	}
+}
 
 func readOverlay(overlayFilepath string, height uint) image.Image {
 
@@ -78,7 +135,7 @@ func buildNewParrot(decodedGif *gif.GIF, overlayImage image.Image, numFrames int
 	return decodedGif
 }
 
-func main() {
+func make_parrot() {
 	//Get filepath argument
 	var overlayFilepath string
 	if len(os.Args) >= 2 {
@@ -109,7 +166,7 @@ func main() {
 	parrotGif := buildNewParrot(decodedGif, overlayImage, numFrames)
 
 	//Create output file
-	outGif, err := os.Create("./parrot_out.gif")
+	outGif, err := os.Create(outputLoc)
 	if err != nil {
 		log.Fatalln(err)
 	}
